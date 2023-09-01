@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  back:
+    build: ./laboracao-back
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./laboracao-back:/app
+    networks:
+      - my-network
+
+  front:
+    build: ./laboracao-front
+    ports:
+      - 3000:3000
+    volumes:
+      - ./laboracao-front:/app
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1 
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    links:
+      - back
+    networks:
+      - my-network
+
+  mongo:
+    image: bitnami/mongodb:4.4.15-debian-10-r8
+    volumes:
+      - mongodb_data:/bitnami/mongodb
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGODB_USERNAME=root
+      - MONGODB_ROOT_PASSWORD=root
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_KEY=123456
+      - MONGODB_DATABASE=beto
+    networks:
+      - my-network
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  my-network:
+    external: true
