@@ -28,3 +28,10 @@ Essa estrutura deve ser respeitada para o docker compose rodar corretamente.
 ### Dockerfile
 
 Cada parte do projeto possui seu respectivo docker file em seu diretório raiz.
+
+### BACK E FRONT
+
+Os respectivos projetos estão disponíveis em:
+
+- BACK: https://github.com/laboracao/laboracao-back
+- FRONT: https://github.com/laboracao/laboracao-front
